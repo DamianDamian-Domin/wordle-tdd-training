@@ -6,6 +6,7 @@ import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '@/settings'
 describe('WordleBoard', () => {
   let wordOfTheyDay = "TESTS"
   let wrapper: ReturnType<typeof mount>;
+
   beforeEach(() => {
     wrapper = mount(WordleBoard, { props: { wordOfTheyDay } })
   })
@@ -41,6 +42,11 @@ describe('WordleBoard', () => {
   })
 
   describe("Rules of defining the word of they day", () => {
+
+    beforeEach(() => {
+      console.warn = vi.fn()
+    })
+
     test.each(
       [
         {wordOfTheyDay: "FLY", reason: "word-of-they-day must have 5 characters"},
@@ -48,7 +54,6 @@ describe('WordleBoard', () => {
         {wordOfTheyDay: "QQQQQQ", reason: "word-of-they-day must be a valid English word"}
       ]
     )("Since $reason: $wordOfTheyDay is invalid therefore a warning must be emitted", async({wordOfTheyDay}) => {
-      console.warn = vi.fn()
   
       mount(WordleBoard, {props: {wordOfTheyDay}})
   
@@ -58,7 +63,6 @@ describe('WordleBoard', () => {
   
     test("no warning is displayed if the word of the day is real word, all upercase and 5 characters long", async() => {
   
-      console.warn = vi.fn()
     
       mount(WordleBoard, {props: {wordOfTheyDay: "TESTS"}})
     
