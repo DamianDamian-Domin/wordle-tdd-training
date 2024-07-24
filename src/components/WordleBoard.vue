@@ -1,14 +1,17 @@
 
 <template>
-  <input type="text">
-  <p> {{ VICTORY_MESSAGE }} </p>
-  <p>{{ DEFEAT_MESSAGE }}</p>
+  <input v-model="guessInProgress" @keydown.enter="guessSubmitted = guessInProgress" type="text">
+  <p v-if="guessSubmitted.length > 0" v-text="guessSubmitted === wordOfTheyDay ? VICTORY_MESSAGE : DEFEAT_MESSAGE"></p>
 </template>
 
 
 <script setup lang="ts">
+import { ref } from "vue"
 import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '@/settings';
 defineProps<{
   wordOfTheyDay: string
 }>()
+
+const guessInProgress = ref("")
+const guessSubmitted = ref("")
 </script>
