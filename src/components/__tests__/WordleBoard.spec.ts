@@ -67,4 +67,14 @@ describe('WordleBoard', () => {
 
   })
 
+  test("no warning is displayed if the word of the day is real word, all upercase and 5 characters long", async() => {
+
+    console.warn = vi.fn()
+  
+    mount(WordleBoard, {props: {wordOfTheyDay: "TESTS"}})
+  
+    expect(console.warn).not.toHaveBeenCalled()
+
+  })
+
 })
