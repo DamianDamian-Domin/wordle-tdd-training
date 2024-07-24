@@ -29,13 +29,21 @@ describe('WordleBoard', () => {
     await playerSubmitsGuess("WRONG")
 
     expect(wrapper.text()).toContain(DEFEAT_MESSAGE)
-    
+
   })
 
   test("no end of game message appears if the user has not yet made a guess", async () => {
 
     expect(wrapper.text()).not.toContain(VICTORY_MESSAGE)
     expect(wrapper.text()).not.toContain(DEFEAT_MESSAGE)
+  })
+
+  test("if a word of the day probided dones not have exactly 5 characters, a warning is emitted", async() => {
+
+    vi.spyOn(console, "warn")
+    mount(WordleBoard, {props: {wordOfTheyDay: "FLY"}})
+    expect(console.warn).toHaveBeenCalled()
+
   })
 
 
