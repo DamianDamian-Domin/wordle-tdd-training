@@ -57,6 +57,14 @@ describe('WordleBoard', () => {
 
   })
 
+  test("if the word of they day is not real word, warning is emitted", async() => {
 
+    console.warn = vi.fn()
+  
+    mount(WordleBoard, {props: {wordOfTheyDay: "QQQQQ"}})
+  
+    expect(console.warn).toHaveBeenCalled()
+
+  })
 
 })
