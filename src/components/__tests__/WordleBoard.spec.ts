@@ -29,6 +29,7 @@ describe('WordleBoard', () => {
     await playerSubmitsGuess("WRONG")
 
     expect(wrapper.text()).toContain(DEFEAT_MESSAGE)
+    
   })
 
   test("no end of game message appears if the user has not yet made a guess", async () => {
