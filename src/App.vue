@@ -5,7 +5,7 @@ import WordleBoard from './components/WordleBoard.vue'
 <template>
   <header>
     <div class="wrapper">
-      <WordleBoard msg="You did it!" />
+      <WordleBoard word-of-they-day="You did it!" />
     </div>
   </header>
 
