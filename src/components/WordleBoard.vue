@@ -1,12 +1,13 @@
 
 <template>
   <input type="text">
-  <p> You won! </p>
-    <p class="green">{{ wordOfTheyDay }}a testaaaaa</p>
+  <p class="green">{{ wordOfTheyDay }}</p>
+  <p> {{ VICTORY_MESSAGE }} </p>
 </template>
 
 
 <script setup lang="ts">
+import { VICTORY_MESSAGE } from '@/settings';
 defineProps<{
   wordOfTheyDay: string
 }>()
