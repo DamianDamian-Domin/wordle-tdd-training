@@ -1,8 +1,8 @@
 
 <template>
   <input type="text">
-  <p class="green">{{ wordOfTheyDay }}</p>
   <p> {{ VICTORY_MESSAGE }} </p>
+  <p class="green">Better luck next time!</p>
 </template>
 
 
