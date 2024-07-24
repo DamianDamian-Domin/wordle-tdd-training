@@ -47,5 +47,16 @@ describe('WordleBoard', () => {
 
   })
 
+  test("if the word of they day is not all in uppercase, warning is emitted", async() => {
+
+    console.warn = vi.fn()
+  
+    mount(WordleBoard, {props: {wordOfTheyDay: "tests"}})
+  
+    expect(console.warn).toHaveBeenCalled()
+
+  })
+
+
 
 })
