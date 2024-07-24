@@ -1,13 +1,13 @@
 
 <template>
-  <input maxlength="5" v-model="formattedGuessInProgress" @keydown.enter="guessSubmitted = guessInProgress" type="text">
+  <input :maxlength="WORD_SIZE" v-model="formattedGuessInProgress" @keydown.enter="guessSubmitted = guessInProgress" type="text">
   <p v-if="guessSubmitted.length > 0" v-text="guessSubmitted === wordOfTheyDay ? VICTORY_MESSAGE : DEFEAT_MESSAGE"></p>
 </template>
 
 
 <script setup lang="ts">
 import { computed, ref } from "vue"
-import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '@/settings';
+import { VICTORY_MESSAGE, DEFEAT_MESSAGE, WORD_SIZE } from '@/settings';
 import englishWords from "@/englishWordsWith5Letters.json"
 defineProps({
   wordOfTheyDay: {
@@ -24,7 +24,7 @@ const formattedGuessInProgress = computed({
     return guessInProgress.value
   },
   set(rawValue: string) {
-    guessInProgress.value = rawValue.slice(0, 5)
+    guessInProgress.value = rawValue.slice(0, WORD_SIZE)
   }
 })
 </script>

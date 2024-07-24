@@ -1,7 +1,7 @@
 
 import { mount } from '@vue/test-utils'
 import WordleBoard from '../WordleBoard.vue'
-import { VICTORY_MESSAGE, DEFEAT_MESSAGE } from '@/settings'
+import { VICTORY_MESSAGE, DEFEAT_MESSAGE, WORD_SIZE } from '@/settings'
 import { wrap } from 'module'
 
 describe('WordleBoard', () => {
@@ -50,7 +50,7 @@ describe('WordleBoard', () => {
 
     test.each(
       [
-        {wordOfTheyDay: "FLY", reason: "word-of-they-day must have 5 characters"},
+        {wordOfTheyDay: "FLY", reason: `word-of-they-day must have ${WORD_SIZE} characters`},
         {wordOfTheyDay: "test", reason: "word-of-they-day must be all in uppercase"},
         {wordOfTheyDay: "QQQQQ", reason: "word-of-they-day must be a valid English word"}
       ]
@@ -62,7 +62,7 @@ describe('WordleBoard', () => {
   
     })
   
-    test("no warning is displayed if the word of the day is real word, all upercase and 5 characters long", async() => {
+    test(`no warning is displayed if the word of the day is real word, all upercase and ${WORD_SIZE} characters long`, async() => {
   
     
       mount(WordleBoard, {props: {wordOfTheyDay: "TESTS"}})
@@ -73,11 +73,11 @@ describe('WordleBoard', () => {
   })
 
   describe("Player input", () => {
-      test("player guesses are limited to 5 letters", async () => {
+      test(`player guesses are limited to ${WORD_SIZE} letters`, async () => {
         await playerSubmitsGuess(wordOfTheyDay + "EXTRA")
 
         expect(wrapper.text()).toContain(VICTORY_MESSAGE)
-        
+
       })
       test.todo("player guesses can only be submitted if they are real words")
       test.todo("player guesses are not case-sensitive")
