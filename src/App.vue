@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import WordleBoard from './components/WordleBoard.vue'
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <WordleBoard msg="You did it!" />
     </div>
   </header>
 
@@ -16,4 +16,4 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <style scoped>
 
-</style>
+</style>./components/WordleBoard.vue
