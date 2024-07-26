@@ -2,15 +2,17 @@ As others are pointing new computed behavior doesn't allow to pass the test. Thi
 input.
 
 <template>
-  <input :maxlength="WORD_SIZE" v-model="guessInProgress" @input="onInput" @keydown.enter="onSubmit" type="text">
+  <GuessInput @guess-submitted="guess => guessSubmitted = guess"></GuessInput>
   <p v-if="guessSubmitted.length > 0" v-text="guessSubmitted === wordOfTheyDay ? VICTORY_MESSAGE : DEFEAT_MESSAGE"></p>
 </template>
 
 
 <script setup lang="ts">
-import { computed, ref, watchEffect } from "vue"
+import { computed, ref } from "vue"
 import { VICTORY_MESSAGE, DEFEAT_MESSAGE, WORD_SIZE } from '@/settings';
 import englishWords from "@/englishWordsWith5Letters.json"
+import GuessInput from "@/components/GuessInput.vue"
+
 defineProps({
   wordOfTheyDay: {
     type: String,
@@ -18,23 +20,11 @@ defineProps({
   }
 })
 
-const guessInProgress = ref("")
+const emit = defineEmits<{
+  "guess-submitted": [guess: string]
+}>()
+
 const guessSubmitted = ref("")
 
-function onInput(event: Event): void {
-  const target = event.target as HTMLInputElement
-  const value = target.value
-  guessInProgress.value = value
-    .slice(0, WORD_SIZE)
-    .toUpperCase()
-    .replace(/[^A-Z]+/gi, "")
-}
-
-function onSubmit() {
-  if (!englishWords.includes(guessInProgress.value)) {
-    return
-  }
-  guessSubmitted.value = guessInProgress.value
-}
 
 </script>
