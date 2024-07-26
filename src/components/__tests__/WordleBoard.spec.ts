@@ -92,6 +92,14 @@ describe('WordleBoard', () => {
   })
 
   describe("Player input", () => {
+    
+      test('the input gets cleared after each submission', async() => {
+
+        await playerSubmitsGuess("CODER")
+
+        expect(wrapper.find<HTMLInputElement>('input[type=text]').element.value).toEqual('')
+
+      })
 
       test("remains in focus the entire time", async () => {
         document.body.innerHTML = `<div id="app"></div>`
