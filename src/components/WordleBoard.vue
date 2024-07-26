@@ -1,10 +1,10 @@
 <template>
   <main>
-    <guess-input @guess-submitted="guess => guessSubmitted = guess"/>
+    <guess-input @guess-submitted="guess => guessesSubmitted.push(guess)"/>
 
-    <p v-if="guessSubmitted.length > 0"
+    <p v-if="guessesSubmitted.length === 6 || guessesSubmitted.includes(wordOfTheyDay)"
        class="end-of-game-message"
-       v-text="guessSubmitted === wordOfTheyDay ? VICTORY_MESSAGE : DEFEAT_MESSAGE"/>
+       v-text="guessesSubmitted.includes(wordOfTheyDay) ? VICTORY_MESSAGE : DEFEAT_MESSAGE" />
   </main>
 </template>
 
@@ -19,6 +19,7 @@ import GuessInput from "@/components/GuessInput.vue"
 defineProps({
   wordOfTheyDay: {
     type: String,
+    required: true,
     validator: (wordGiven: string) => englishWords.includes(wordGiven)
   }
 })
@@ -27,7 +28,7 @@ const emit = defineEmits<{
   "guess-submitted": [guess: string]
 }>()
 
-const guessSubmitted = ref("")
+const guessesSubmitted = ref<string[]>([])
 
 
 </script>
