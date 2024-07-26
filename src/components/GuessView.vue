@@ -41,6 +41,12 @@ li:not([data-letter=" "]) {
   animation: pop 100ms;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 @keyframes pop {
   0% {
     transform: scale(1);
