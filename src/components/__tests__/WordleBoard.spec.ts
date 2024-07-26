@@ -1,7 +1,7 @@
 
 import { mount } from '@vue/test-utils'
 import WordleBoard from '../WordleBoard.vue'
-import { VICTORY_MESSAGE, DEFEAT_MESSAGE, WORD_SIZE } from '@/settings'
+import { VICTORY_MESSAGE, DEFEAT_MESSAGE, WORD_SIZE, MAX_GUESSES_COUNT } from '@/settings'
 import { wrap } from 'module'
 
 describe('WordleBoard', () => {
@@ -34,8 +34,8 @@ describe('WordleBoard', () => {
       { numberOfGuesses: 3, shouldSeeDefeatMessage: false},
       { numberOfGuesses: 4, shouldSeeDefeatMessage: false},
       { numberOfGuesses: 5, shouldSeeDefeatMessage: false},
-      { numberOfGuesses: 6, shouldSeeDefeatMessage: true}
-    ])('a defeat message apperas if the player makes incorrect guesses 6 times', async ({numberOfGuesses, shouldSeeDefeatMessage}) => {
+      { numberOfGuesses: MAX_GUESSES_COUNT, shouldSeeDefeatMessage: true}
+    ])(`a defeat message apperas if the player makes incorrect guesses ${MAX_GUESSES_COUNT} times`, async ({numberOfGuesses, shouldSeeDefeatMessage}) => {
   
         test(`therefore for ${numberOfGuesses} guess(es), a deafeat message should ${shouldSeeDefeatMessage ? "" : "not" } appear`, async() => {
           for (let i = 0; i < numberOfGuesses; i++) {
