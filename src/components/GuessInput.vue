@@ -44,8 +44,6 @@ function onSubmit() {
     emit("guess-submitted", guessInProgress.value)
 }
 
-emit("guess-submitted", guessInProgress.value)
-
 </script>
 
 <style scoped>

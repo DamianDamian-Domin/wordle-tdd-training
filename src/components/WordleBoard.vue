@@ -1,5 +1,13 @@
 <template>
   <main>
+
+    <ul>
+      {{ guessesSubmitted }}
+      <li v-for="(guess, index) in guessesSubmitted" :key="`${guess}-${index}`">
+        {{ guess }}
+      </li>
+    </ul>
+
     <guess-input @guess-submitted="guess => guessesSubmitted.push(guess)"/>
 
     <p v-if="isGameOver"
