@@ -1,12 +1,14 @@
+As others are pointing new computed behavior doesn't allow to pass the test. This is my solution with validation with on
+input.
 
 <template>
-  <input :maxlength="WORD_SIZE" v-model="formattedGuessInProgress" @keydown.enter="onSubmit" type="text">
+  <input :maxlength="WORD_SIZE" v-model="guessInProgress" @input="onInput" @keydown.enter="onSubmit" type="text">
   <p v-if="guessSubmitted.length > 0" v-text="guessSubmitted === wordOfTheyDay ? VICTORY_MESSAGE : DEFEAT_MESSAGE"></p>
 </template>
 
 
 <script setup lang="ts">
-import { computed, ref } from "vue"
+import { computed, ref, watchEffect } from "vue"
 import { VICTORY_MESSAGE, DEFEAT_MESSAGE, WORD_SIZE } from '@/settings';
 import englishWords from "@/englishWordsWith5Letters.json"
 defineProps({
@@ -19,17 +21,14 @@ defineProps({
 const guessInProgress = ref("")
 const guessSubmitted = ref("")
 
-const formattedGuessInProgress = computed({
-  get() {
-    return guessInProgress.value
-  },
-  set(rawValue: string) {
-    guessInProgress.value = rawValue
-      .slice(0, WORD_SIZE)
-      .toUpperCase()
-      .replace(/[^A-Z]+/gi, "")
-  }
-})
+function onInput(event: Event): void {
+  const target = event.target as HTMLInputElement
+  const value = target.value
+  guessInProgress.value = value
+    .slice(0, WORD_SIZE)
+    .toUpperCase()
+    .replace(/[^A-Z]+/gi, "")
+}
 
 function onSubmit() {
   if (!englishWords.includes(guessInProgress.value)) {
