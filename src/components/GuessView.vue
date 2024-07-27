@@ -4,6 +4,7 @@
           :key="`${letter}-${index}`"
           :data-letter="letter"
           :class="{'with-flips': shouldFlip}"
+          :data-letter-feedback="shouldFlip ? 'unkown' : null"
           class="letter"
           v-text="letter"/>
     </ul>
@@ -13,6 +14,7 @@
 <script setup lang="ts">
 
 import { WORD_SIZE } from '@/settings';
+import { should } from 'vitest';
 
 withDefaults(defineProps<{ guess: string, shouldFlip?: boolean }>(), {shouldFlip: false})
 
