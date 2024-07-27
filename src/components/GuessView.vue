@@ -4,7 +4,7 @@
           :key="`${letter}-${index}`"
           :data-letter="letter"
           :class="{'with-flips': shouldFlip}"
-          :data-letter-feedback="shouldFlip ? 'unkown' : null"
+          :data-letter-feedback="shouldFlip ? 'correct' : null"
           class="letter"
           v-text="letter"/>
     </ul>
