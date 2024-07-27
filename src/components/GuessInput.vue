@@ -3,6 +3,7 @@
     <GuessView :guess="guessInProgress" />
     <input v-model="guessInProgress"
            :maxlength="WORD_SIZE"
+           :disabled="isGameOver"
            autofocus
            @blur="({target}) => (target as HTMLInputElement).focus()"
            type="text"
@@ -15,6 +16,13 @@ import { ref } from "vue"
 import { WORD_SIZE } from '@/settings';
 import englishWords from "@/englishWordsWith5Letters.json"
 import GuessView from "@/components/GuessView.vue"
+
+defineProps({
+  isGameOver: {
+    required: true,
+    type: Boolean
+  }
+})
 
 const emit = defineEmits<{
   "guess-submitted": [guess: string]

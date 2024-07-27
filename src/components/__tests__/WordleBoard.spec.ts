@@ -152,6 +152,16 @@ describe('WordleBoard', () => {
 
       })
 
+      test("player shall not have possibility to guess anymore when game is over - win", async() => {
+
+        await playerSubmitsGuess(wordOfTheyDay)
+        await playerSubmitsGuess('CODER')
+
+        expect(wrapper.text()).not.toContain('CODER')
+        
+
+      })
+
   })
 
   test("All previous guesses doone by the player are visible in the page", async() => {
