@@ -155,11 +155,29 @@ describe('WordleBoard', () => {
       test("player shall not have possibility to guess anymore when game is over - win", async() => {
 
         await playerSubmitsGuess(wordOfTheyDay)
-        await playerSubmitsGuess('CODER')
 
-        expect(wrapper.text()).not.toContain('CODER')
+        expect(wrapper.find("input[type=text]").attributes("disabled")).not.toBeUndefined()
+
         
+      })
 
+      test("player shall not have possibility to guess anymore when game is over - lose", async() => {
+
+        const guesses = [
+          "WRONG",
+          "GUESS",
+          "HELLO",
+          "WORLD",
+          "HAPPY",
+          "CODER",
+        ]
+    
+        for (const guess of guesses) {
+          await playerSubmitsGuess(guess)
+        }
+
+        expect(wrapper.find("input[type=text]").attributes("disabled")).not.toBeUndefined()
+        
       })
 
   })
