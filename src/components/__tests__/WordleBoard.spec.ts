@@ -15,16 +15,16 @@ describe('WordleBoard', () => {
 
 
   async function playerTypesAndSubmitsGuess(guess: string) {
-      playerTypesGuess(guess)
-      playerPressesEnter()
-  }
-  
-  function playerTypesGuess(guess: string) {
-    wrapper.find("input[type=text]").setValue(guess)
+    await playerTypesGuess(guess)
+    await playerPressesEnter()
   }
 
-  function playerPressesEnter() {
-    wrapper.find("input[type=text]").trigger("keydown.enter")
+  async function playerTypesGuess(guess: string) {
+    await wrapper.find("input[type=text]").setValue(guess)
+  }
+
+  async function playerPressesEnter() {
+    await wrapper.find("input[type=text]").trigger("keydown.enter")
   }
 
   describe("End of the game messages", () => {
@@ -146,7 +146,7 @@ describe('WordleBoard', () => {
       })
       test("player guesses can only contain letters", async () => {
         
-        await playerTypesAndSubmitsGuess("H3!RT")
+        await playerTypesGuess("H3!RT")
 
         expect(wrapper.find<HTMLInputElement>('input[type=text]').element.value).toEqual('HRT')
 
@@ -154,8 +154,8 @@ describe('WordleBoard', () => {
 
       test("non-letter characters do not render on the screen while being typed", async() => {
 
-        await playerTypesAndSubmitsGuess("333")
-        await playerTypesAndSubmitsGuess("22")
+        await playerTypesGuess("333")
+        await playerTypesGuess("22")
         expect(wrapper.find<HTMLInputElement>('input[type=text]').element.value).toEqual('')
 
       })
