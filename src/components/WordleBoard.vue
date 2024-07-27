@@ -3,7 +3,7 @@
 
     <ul>
       <li v-for="index in MAX_GUESSES_COUNT" :key="`${index}`">
-        <GuessView :guess="guessesSubmitted[index - 1] || ''" />
+        <GuessView :guess="guessesSubmitted[index - 1] || ''" :should-flip="!!guessesSubmitted[index - 1]" />
       </li>
     </ul>
 

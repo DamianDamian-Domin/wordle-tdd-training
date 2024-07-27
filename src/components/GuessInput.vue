@@ -1,13 +1,14 @@
 <template>
     
-    <GuessView :guess="guessInProgress" />
+    <GuessView :guess="guessInProgress" :class="{shake: hasFailedValidation}" />
     <input v-model="guessInProgress"
            :maxlength="WORD_SIZE"
            :disabled="isGameOver"
            autofocus
+           aria-label="Make your guess for the word of the day!"
            @blur="({target}) => (target as HTMLInputElement).focus()"
            type="text"
-           @input="onInput"
+            @input="onInput"
            @keydown.enter="onSubmit">
   </template>
 
@@ -29,6 +30,7 @@ const emit = defineEmits<{
 }>()
 
 const guessInProgress = ref("")
+const hasFailedValidation = ref<boolean>(false)
 
 function onInput(event: Event): void {
   const target = event.target as HTMLInputElement
@@ -41,6 +43,8 @@ function onInput(event: Event): void {
 
 function onSubmit() {
     if (!englishWords.includes(guessInProgress.value)) {
+        hasFailedValidation.value = true
+        setTimeout(() => hasFailedValidation.value = false, 500)
         return
     }
     emit("guess-submitted", guessInProgress.value)
@@ -56,4 +60,27 @@ input {
   opacity: 0;
 }
 
+.shake {
+  animation: shake;
+  animation-duration: 100ms;
+  animation-iteration-count: 2;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(-2%);
+  }
+
+  25% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(2%);
+  }
+
+  75% {
+    transform: translateX(0);
+  }
+}
 </style>
