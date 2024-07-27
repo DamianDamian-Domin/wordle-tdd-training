@@ -2,8 +2,8 @@
   <main>
 
     <ul>
-      <li v-for="(guess, index) in guessesSubmitted" :key="`${guess}-${index}`">
-        <GuessView :guess="guess" />
+      <li v-for="index in MAX_GUESSES_COUNT" :key="`${index}`">
+        <GuessView :guess="guessesSubmitted[index - 1] || ''" />
       </li>
     </ul>
 
