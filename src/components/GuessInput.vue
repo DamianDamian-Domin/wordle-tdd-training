@@ -18,10 +18,14 @@ import { WORD_SIZE } from '@/settings';
 import englishWords from "@/englishWordsWith5Letters.json"
 import GuessView from "@/components/GuessView.vue"
 
-defineProps({
+const props = defineProps({
   isGameOver: {
     required: true,
     type: Boolean
+  },
+  guessesSubmitted: {
+    required: true,
+    type: Array
   }
 })
 
@@ -47,6 +51,13 @@ function onSubmit() {
         setTimeout(() => hasFailedValidation.value = false, 500)
         return
     }
+
+    if( props.guessesSubmitted.includes(guessInProgress.value) ) {
+      hasFailedValidation.value = true
+      setTimeout(() => hasFailedValidation.value = false, 500)
+      return
+    }
+
     emit("guess-submitted", guessInProgress.value)
 
     guessInProgress.value = ''

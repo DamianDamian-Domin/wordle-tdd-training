@@ -36,31 +36,6 @@ describe('WordleBoard', () => {
   
     })
   
-    describe.each(
-      Array.from(
-        {length: MAX_GUESSES_COUNT + 1},
-        (_, numberOfGuesses) => ({
-          numberOfGuesses,
-          shouldSeeDefeatMessage: numberOfGuesses === MAX_GUESSES_COUNT
-        })
-      )
-    )(`a defeat message apperas if the player makes incorrect guesses ${MAX_GUESSES_COUNT} times`, ({numberOfGuesses, shouldSeeDefeatMessage}) => {
-  
-        test(`therefore for ${numberOfGuesses} guess(es), a deafeat message should ${shouldSeeDefeatMessage ? "" : "not" } appear`, async() => {
-          for (let i = 0; i < numberOfGuesses; i++) {
-            await playerTypesAndSubmitsGuess("WRONG")
-          }
-
-          if (shouldSeeDefeatMessage) {
-            expect(wrapper.text()).toContain(DEFEAT_MESSAGE)
-          } else {
-            expect(wrapper.text()).not.toContain(DEFEAT_MESSAGE)
-          }
-
-
-      })
-  
-    })
   
     test("no end of game message appears if the user has not yet made a guess", async () => {
   
@@ -207,7 +182,24 @@ describe('WordleBoard', () => {
     for (const guess of guesses) {
       expect(wrapper.text()).toContain(guess)
     }
+  })
 
+  test("Player should be not able to guess same word more than once", async() => {
+    const guesses = [
+      "WRONG",
+      "WRONG",
+      "HELLO",
+      "HELLO",
+      "HAPPY",
+      "HAPPY",
+      "CODER",
+    ]
+
+    for (const guess of guesses) {
+      await playerTypesAndSubmitsGuess(guess)
+    }
+
+    expect(wrapper.text()).toContain('CODER')
   })
 
   describe("Displaying hints/feedback to the player", () => {

@@ -10,7 +10,7 @@
       </li>
     </ul>
 
-    <guess-input :is-game-over="isGameOver" @guess-submitted="guess => guessesSubmitted.push(guess)"/>
+    <guess-input :guesses-submitted="guessesSubmitted" :is-game-over="isGameOver" @guess-submitted="guess => guessesSubmitted.push(guess)"/>
 
     <p v-if="isGameOver"
        class="end-of-game-message"
