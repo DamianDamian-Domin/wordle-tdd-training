@@ -1,4 +1,13 @@
 {
+  "include": [
+    "**/*.tx",
+    "../src/**/*.vue"
+  ],
+  "compilerOptions": {
+    "types": [
+      "cypress"
+    ]
+  },
   "files": [],
   "references": [
     {
