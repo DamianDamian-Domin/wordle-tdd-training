@@ -28,3 +28,4 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+cypress/snapshots/src/components/__tests__/WordleBoard.cy.ts/__diff_output__/**/*
