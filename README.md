@@ -1,6 +1,35 @@
-# wordle-tdd-course
 
-This template should help get you started developing with Vue 3 in Vite.
+
+# Wordle Clone Project
+
+## Overview
+This project is a clone of the popular simple game Wordle, where the goal is to guess a hidden word. Players have 6 attempts to guess the correct word.
+
+
+![alt text](src/assets/game-screenshot.png)
+
+## Game Rules
+- The player has 6 attempts to guess the word of the day.
+- Following the rules of the original Wordle game:
+  - Correct letters in the correct position are highlighted.
+  - Correct letters in the wrong position are highlighted differently.
+  - Incorrect letters are marked as such.
+
+## Project Goals
+The main objective of this project is to gain knowledge in the field of unit testing and component testing using the Vitest and Cypress libraries.
+
+
+
+## Testing
+- The project is fully covered by unit tests.
+- Comprehensive component testing to ensure the reliability and accuracy of the game logic and user interface.
+
+## Technologies Used
+- Vue.js
+- TypeScript
+- Vitest for unit testing
+- Cypress for component testing
+
 
 ## Recommended IDE Setup
 
@@ -20,6 +49,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 npm install
 ```
 
+
 ### Compile and Hot-Reload for Development
 
 ```sh
@@ -35,5 +65,11 @@ npm run build
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-npm run test:unit
+npm run test
+```
+
+### Run E2E Tests with [Cypress](https://www.cypress.io/)
+
+```sh
+npm run test:e2e
 ```
