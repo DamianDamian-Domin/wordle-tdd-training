@@ -2,8 +2,11 @@
   <main>
 
     <ul>
-      <li v-for="index in MAX_GUESSES_COUNT" :key="`${index}`">
-        <GuessView :guess="guessesSubmitted[index - 1] || ''" :should-flip="!!guessesSubmitted[index - 1]" />
+      <li v-for="(guess, index) in guessesSubmitted" :key="`${guess}-${index}`">
+        <GuessView :guess="guess" :answer="wordOfTheyDay" />
+      </li>
+      <li v-for="index in guessesLeft" :key="`${index}`">
+        <GuessView guess="" />
       </li>
     </ul>
 
@@ -39,6 +42,8 @@ const emit = defineEmits<{
 const guessesSubmitted = ref<string[]>([])
 
 const isGameOver = computed(() => guessesSubmitted.value.length === MAX_GUESSES_COUNT || guessesSubmitted.value.includes(props.wordOfTheyDay))
+
+const guessesLeft = computed(() => MAX_GUESSES_COUNT - guessesSubmitted.value.length)
 
 </script>
 

@@ -3,8 +3,8 @@
       <li v-for="(letter, index) in guess.padEnd(WORD_SIZE, ' ')"
           :key="`${letter}-${index}`"
           :data-letter="letter"
-          :class="{'with-flips': shouldFlip}"
-          :data-letter-feedback="shouldFlip ? 'correct' : null"
+          :class="{'with-flips': answer}"
+          :data-letter-feedback="getFeedback(index)"
           class="letter"
           v-text="letter"/>
     </ul>
@@ -16,7 +16,17 @@
 import { WORD_SIZE } from '@/settings';
 import { should } from 'vitest';
 
-withDefaults(defineProps<{ guess: string, shouldFlip?: boolean }>(), {shouldFlip: false})
+const props = defineProps<{ guess: string, answer?: string }>()
+
+function getFeedback(letterPosition: number) {
+
+  if (!props.answer) {
+    return null
+  }
+
+  return props.answer[letterPosition] === props.guess[letterPosition] ? 'correct' : 'incorrect';
+
+}
 
 </script>
 
