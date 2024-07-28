@@ -6,11 +6,11 @@ import { wrap } from 'module'
 import exp from 'constants'
 
 describe('WordleBoard', () => {
-  let wordOfTheyDay = "TESTS"
+  let wordOfTheDay = "TESTS"
   let wrapper: ReturnType<typeof mount>;
 
   beforeEach(() => {
-    wrapper = mount(WordleBoard, { props: { wordOfTheyDay } })
+    wrapper = mount(WordleBoard, { props: { wordOfTheDay } })
   })
 
 
@@ -30,7 +30,7 @@ describe('WordleBoard', () => {
   describe("End of the game messages", () => {
     test('a victory message appears when the user makes a guess that matches the word of they day', async () => {
   
-      await playerTypesAndSubmitsGuess(wordOfTheyDay)
+      await playerTypesAndSubmitsGuess(wordOfTheDay)
   
       expect(wrapper.text()).toContain(VICTORY_MESSAGE)
   
@@ -77,13 +77,13 @@ describe('WordleBoard', () => {
 
     test.each(
       [
-        {wordOfTheyDay: "FLY", reason: `word-of-they-day must have ${WORD_SIZE} characters`},
-        {wordOfTheyDay: "test", reason: "word-of-they-day must be all in uppercase"},
-        {wordOfTheyDay: "QQQQQ", reason: "word-of-they-day must be a valid English word"}
+        {wordOfTheDay: "FLY", reason: `word-of-they-day must have ${WORD_SIZE} characters`},
+        {wordOfTheDay: "test", reason: "word-of-they-day must be all in uppercase"},
+        {wordOfTheDay: "QQQQQ", reason: "word-of-they-day must be a valid English word"}
       ]
-    )("Since $reason: $wordOfTheyDay is invalid therefore a warning must be emitted", async({wordOfTheyDay}) => {
+    )("Since $reason: $wordOfTheDay is invalid therefore a warning must be emitted", async({wordOfTheDay}) => {
   
-      mount(WordleBoard, {props: {wordOfTheyDay}})
+      mount(WordleBoard, {props: {wordOfTheDay}})
   
       expect(console.warn).toHaveBeenCalled()
   
@@ -92,7 +92,7 @@ describe('WordleBoard', () => {
     test(`no warning is displayed if the word of the day is real word, all upercase and ${WORD_SIZE} characters long`, async() => {
   
     
-      mount(WordleBoard, {props: {wordOfTheyDay: "TESTS"}})
+      mount(WordleBoard, {props: {wordOfTheDay: "TESTS"}})
     
       expect(console.warn).not.toHaveBeenCalled()
   
@@ -112,7 +112,7 @@ describe('WordleBoard', () => {
       test("remains in focus the entire time", async () => {
         document.body.innerHTML = `<div id="app"></div>`
         wrapper = mount(WordleBoard, {
-            props: {wordOfTheyDay},
+            props: {wordOfTheDay},
             attachTo: "#app"
         })
 
@@ -124,7 +124,7 @@ describe('WordleBoard', () => {
 
       test(`player guesses are limited to ${WORD_SIZE} letters`, async () => {
 
-        await playerTypesAndSubmitsGuess(wordOfTheyDay + "EXTRA")
+        await playerTypesAndSubmitsGuess(wordOfTheDay + "EXTRA")
 
         expect(wrapper.text()).toContain(VICTORY_MESSAGE)
 
@@ -139,7 +139,7 @@ describe('WordleBoard', () => {
       })
       test("player guesses are not case-sensitive", async () => {
         
-        await playerTypesAndSubmitsGuess(wordOfTheyDay.toLocaleLowerCase())
+        await playerTypesAndSubmitsGuess(wordOfTheDay.toLocaleLowerCase())
 
         expect(wrapper.text()).toContain(VICTORY_MESSAGE)
 
@@ -162,7 +162,7 @@ describe('WordleBoard', () => {
 
       test("player shall not have possibility to guess anymore when game is over - win", async() => {
 
-        await playerTypesAndSubmitsGuess(wordOfTheyDay)
+        await playerTypesAndSubmitsGuess(wordOfTheDay)
 
         expect(wrapper.find("input[type=text]").attributes("disabled")).not.toBeUndefined()
 
@@ -214,7 +214,7 @@ describe('WordleBoard', () => {
     test("hints are not displayed until the player submits their guess", async() => {
       expect(wrapper.find("[data-letter-feedback]").exists(), "Feedback was being rendered before the player started typing guess").toBe(false)
 
-      await playerTypesGuess(wordOfTheyDay)
+      await playerTypesGuess(wordOfTheDay)
 
       expect(wrapper.find("[data-letter-feedback]").exists(), "Feedback was being rendered while player typing guess").toBe(false)
 
@@ -255,7 +255,7 @@ describe('WordleBoard', () => {
     const wordOfTheDay = "WORLD"
     const playerGuess = "WRONG"
 
-    test.skipIf(expectedFeedback === 'almost')(`the feedback for '${playerGuess[position]}' (index: ${position}) should be '${expectedFeedback}' because '${reason}'`, async () => {
+    test(`the feedback for '${playerGuess[position]}' (index: ${position}) should be '${expectedFeedback}' because '${reason}'`, async () => {
         wrapper = mount(WordleBoard, {propsData: {wordOfTheDay}})
 
         await playerTypesAndSubmitsGuess(playerGuess)

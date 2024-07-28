@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="wrapper">
-      <WordleBoard word-of-they-day="TESTS" />
+      <WordleBoard word-of-the-day="TESTS" />
     </div>
   </header>
 

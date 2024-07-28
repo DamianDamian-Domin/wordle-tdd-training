@@ -3,7 +3,7 @@
 
     <ul>
       <li v-for="(guess, index) in guessesSubmitted" :key="`${guess}-${index}`">
-        <GuessView :guess="guess" :answer="wordOfTheyDay" />
+        <GuessView :guess="guess" :answer="wordOfTheDay" />
       </li>
       <li v-for="index in guessesLeft" :key="`${index}`">
         <GuessView guess="" />
@@ -14,7 +14,7 @@
 
     <p v-if="isGameOver"
        class="end-of-game-message"
-       v-text="guessesSubmitted.includes(wordOfTheyDay) ? VICTORY_MESSAGE : DEFEAT_MESSAGE" />
+       v-text="guessesSubmitted.includes(wordOfTheDay) ? VICTORY_MESSAGE : DEFEAT_MESSAGE" />
   </main>
 </template>
 
@@ -28,7 +28,7 @@ import GuessInput from "@/components/GuessInput.vue"
 import GuessView from "@/components/GuessView.vue"
 
 const props = defineProps({
-  wordOfTheyDay: {
+  wordOfTheDay: {
     type: String,
     required: true,
     validator: (wordGiven: string) => englishWords.includes(wordGiven)
@@ -41,7 +41,7 @@ const emit = defineEmits<{
 
 const guessesSubmitted = ref<string[]>([])
 
-const isGameOver = computed(() => guessesSubmitted.value.length === MAX_GUESSES_COUNT || guessesSubmitted.value.includes(props.wordOfTheyDay))
+const isGameOver = computed(() => guessesSubmitted.value.length === MAX_GUESSES_COUNT || guessesSubmitted.value.includes(props.wordOfTheDay))
 
 const guessesLeft = computed(() => MAX_GUESSES_COUNT - guessesSubmitted.value.length)
 

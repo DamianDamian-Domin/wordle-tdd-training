@@ -14,17 +14,19 @@
 <script setup lang="ts">
 
 import { WORD_SIZE } from '@/settings';
-import { should } from 'vitest';
+import { Console } from 'console';
 
 const props = defineProps<{ guess: string, answer?: string }>()
 
-function getFeedback(letterPosition: number) {
-
+function getFeedback(letterPosition: number): null | 'correct' | 'incorrect' | 'almost' {
   if (!props.answer) {
     return null
   }
+  if (!props.answer.includes(props.guess[letterPosition])) {
+    return 'incorrect'
+  }
 
-  return props.answer[letterPosition] === props.guess[letterPosition] ? 'correct' : 'incorrect';
+  return props.answer[letterPosition] === props.guess[letterPosition] ? 'correct' : 'almost';
 
 }
 
